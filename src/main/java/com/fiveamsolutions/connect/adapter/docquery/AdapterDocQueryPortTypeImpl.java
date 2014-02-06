@@ -58,8 +58,33 @@ public class AdapterDocQueryPortTypeImpl implements gov.hhs.fha.nhinc.adapterdoc
                 "\t<DocumentTitle>住院摘要</DocumentTitle>\n" +
                 "</GetDocumentStroedInfoRequest>\n" +
                 "  ]]>";
-        final String TEST_RESPONSE = "<![CDATA[<RetrieveDocumentSetResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:hl7-org:v3\" xsi:schemaLocation=\"urn:hl7-org:v3 ../multicacheschemas/RetrieveDocumentSetResponse.xsd\" status=\"AA\"><Id root=\"响应消息OID\" extension=\"fe9984ab-fb74-49ed-b996-f1e27b45a412\" /><TargetId root=\"响应消息OID\" extension=\"A566407F-827E-4E96-9D75-87ABC2EC5BC6\" /><DocumentResponse><RepositoryUniqueId>686e691e-0172-4233-a256-6c7b416b803a</RepositoryUniqueId><DocumentUniqueId>B4382279D36940B39B5E525BFC57E9AB</DocumentUniqueId><MimeType>text/xml</MimeType><Document>base64内容</Document></DocumentResponse><Detail>successed</Detail></RetrieveDocumentSetResponse>]]>";
-        
+
+        final String TEST_RESPONSE = "<![CDATA[\n" +
+                "<GetDocumentStroedInfoResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:hl7-org:v3\" xsi:schemaLocation=\"urn:hl7-org:v3 ../multicacheschemas/GetDocumentStroedInfoResponse.xsd\" status=\"AA\">\n" +
+                "<Id root=\"请求消息OID\" extension=\"2e35854b-ba01-4bb1-9c93-2faa8c94ffa8\" />\n" +
+                "<TargetId root=\"请求消息OID\" extension=\"DDD34F6E-2E89-435A-9A62-F4CD3D4DE23B\" />\n" +
+                "<DocumentSet>\n" +
+                "<DocumentUniqueId>35d78eed-2b01-47dc-aafd-493b097b994a</DocumentUniqueId>\n" +
+                "<RepositoryUniqueId>9526bf5a-bd6b-47d1-93a5-bdbf6a4de618</RepositoryUniqueId>\n" +
+                "<DocumentTitle />\n" +
+                "<CreateTime>2012-12-01T13:32:15Z</CreateTime>\n" +
+                "<AuthorName>刘欢</AuthorName>\n" +
+                "<PatientID>451134681</PatientID>\n" +
+                "<PatientName>洗衣机</PatientName>\n" +
+                "<ServerOrganization>人民医院</ServerOrganization>\n" +
+                "<EpisodeID>129087332</EpisodeID>\n" +
+                "<InTime>1925-04-07T10:32:15Z</InTime>\n" +
+                "<OutTime>1925-04-17T12:32:15Z</OutTime>\n" +
+                "<AdmissionDepart />\n" +
+                "<AdmissionDoctor>周裕凯</AdmissionDoctor>\n" +
+                "<AdmissionType>HSDC00.03</AdmissionType>\n" +
+                "<DiagnosisResult />\n" +
+                "<DocUrl>http://10.8.252.93:10065/GetCDA/?FileCode=35d78eed-2b01-47dc-aafd-493b097b994a&amp;amp;doc_tp=HSDC00.03</DocUrl>\n" +
+                "</DocumentSet>\n" +
+                "<Detail>success</Detail>\n" +
+                "</GetDocumentStroedInfoResponse>\n" +
+                "]]>";
+
         
         AdhocQueryRequest request = respondingGatewayCrossGatewayQueryRequest.getAdhocQueryRequest();        
         String patientId = getPatientId(request);
