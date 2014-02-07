@@ -87,15 +87,6 @@
                     <version>2.3</version>
                     <configuration>
                         <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-                        <webResources>
-                            <resource>
-                                <directory>src/main/resources</directory>
-                                <targetPath>WEB-INF</targetPath>
-                                <includes>
-                                    <include>*.wsdl</include>
-                                </includes>
-                            </resource>
-                        </webResources>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -131,12 +122,6 @@
                             <wsdlOptions>
                                 <wsdlOption>
                                     <wsdl>classpath:wsdl/AdapterDocQuery.wsdl</wsdl>
-                                    <frontEnd>jaxws21</frontEnd>
-                                    <faultSerialVersionUID>1</faultSerialVersionUID>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <!-- wsdl>http://118.122.165.33:10020/services/HIPMessageServer?wsdl</wsdl -->
-                                    <wsdl>${basedir}/src/main/resources/HIPMessageServer.wsdl</wsdl>
                                     <frontEnd>jaxws21</frontEnd>
                                     <faultSerialVersionUID>1</faultSerialVersionUID>
                                 </wsdlOption>

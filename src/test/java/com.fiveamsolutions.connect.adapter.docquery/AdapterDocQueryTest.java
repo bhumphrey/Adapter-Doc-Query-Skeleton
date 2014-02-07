@@ -1,7 +1,5 @@
 package com.fiveamsolutions.connect.adapter.docquery;
 
-import com.fiveamsolutions.connect.docrepository.DocRepository;
-import com.fiveamsolutions.connect.docrepository.DocumentQueryParameters;
 import gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -13,30 +11,21 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.verify;
 
 public class AdapterDocQueryTest {
 
 
-    @Mock
-    DocRepository mockRepository;
 
-
-    @InjectMocks
     AdapterDocQueryPortTypeImpl endpoint =  new AdapterDocQueryPortTypeImpl();
 
 
     AdapterDocQueryPortType client;
 
     @Before
-    public void setupMocks() {
+    public void setupAdapterWS() {
 
         MockitoAnnotations.initMocks(this);
 
@@ -56,15 +45,10 @@ public class AdapterDocQueryTest {
     public void verifyTheRetrievalOfThePatientId() {
 
         RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d","", "543797436^^^&1.2.840.113619.6.197&ISO");
-        ArgumentCaptor<DocumentQueryParameters> documentQueryArgumentCaptor = ArgumentCaptor.forClass(DocumentQueryParameters.class);
 
         AdhocQueryResponse response = client.respondingGatewayCrossGatewayQuery(request);
 
         assertNotNull(response);
-
-
-        verify(mockRepository).findDocuments(documentQueryArgumentCaptor.capture());
-        assertEquals("543797436^^^&1.2.840.113619.6.197&ISO", documentQueryArgumentCaptor.getValue().getPatientId());
     }
 
 
