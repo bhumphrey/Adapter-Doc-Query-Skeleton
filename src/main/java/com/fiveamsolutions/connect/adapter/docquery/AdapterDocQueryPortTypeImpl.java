@@ -11,6 +11,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -46,6 +48,8 @@ public class AdapterDocQueryPortTypeImpl implements gov.hhs.fha.nhinc.adapterdoc
         populateSlots(responseSlots, documents);
 
         adhocQueryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success");
+
+        //adhocQueryResponse = createErrorResponse("XDSUnknownStoredQuery", "Not Yet Implemented");
 
         return adhocQueryResponse;
     }
@@ -93,7 +97,6 @@ public class AdapterDocQueryPortTypeImpl implements gov.hhs.fha.nhinc.adapterdoc
         List<SlotType1> slots = request.getAdhocQuery().getSlot();
         String patientId = null;
         for (SlotType1 slot : slots) {
-            //TODO: Is this the correct lable for the patient id?
             if (slot.getName().equals("$XDSDocumentEntryPatientId")) {
                 patientId = slot.getValueList().getValue().get(0);
             }
@@ -124,5 +127,22 @@ public class AdapterDocQueryPortTypeImpl implements gov.hhs.fha.nhinc.adapterdoc
         List<String> olValue = oValueList.getValue();
         olValue.add(value);
         return oSlot;
+    }
+
+    private oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse createErrorResponse(String errorCode,
+                                                                                            String codeContext) {
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        RegistryErrorList regErrList = new RegistryErrorList();
+        response.setRegistryErrorList(regErrList);
+        response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+        RegistryObjectListType regObjectList = new RegistryObjectListType();
+        response.setRegistryObjectList(regObjectList);
+
+        RegistryError regErr = new RegistryError();
+        regErrList.getRegistryError().add(regErr);
+        regErr.setCodeContext(codeContext);
+        regErr.setErrorCode(errorCode);
+        regErr.setSeverity("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error");
+        return response;
     }
 }
