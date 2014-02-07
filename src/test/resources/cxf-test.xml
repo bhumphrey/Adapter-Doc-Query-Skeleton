@@ -24,6 +24,10 @@
 
     <bean id="localTransportFactory" class="org.apache.cxf.transport.local.LocalTransportFactory" />
 
+    <bean id="mockDocRepo" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="com.fiveamsolutions.connect.docrepository.DocRepository" />
+    </bean>
+
     <bean id="adapterDocQueryPortType" class="com.fiveamsolutions.connect.adapter.docquery.AdapterDocQueryPortTypeImpl" />
 
     <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:adapterdocquery" id="AdapterDocQuery"

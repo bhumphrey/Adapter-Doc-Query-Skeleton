@@ -15,7 +15,7 @@
         <cxf.version>2.7.8</cxf.version>
         <cxf.xjc-utils.version>2.7.0</cxf.xjc-utils.version>
         <cxf.release.base>${basedir}/../..</cxf.release.base>
-        <spring.version>3.0.7.RELEASE</spring.version>
+        <spring.version>3.2.7.RELEASE</spring.version>
     </properties>
     
     <dependencies>
